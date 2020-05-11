@@ -1,12 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "semantic-ui-react";
 import MenuTabularOnLeft from "./MenuTabularOnLeft";
 import TabularSegment from "./TabularSegment";
+import { act } from "react-dom/test-utils";
 
 const Article: React.FC = () => {
-  // const defaultName = props.lists[props.lists.length - 1].id.toString();
-  const defaultName = "2292814";
-  const [activeItem, setActiveItem] = useState<string>(defaultName);
+  const [entriesLists, setEntriesLists] = useState<Array<any>>([]);
+  const [activeItem, setActiveItem] = useState<string>("");
+  const [entries, setEntries] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    const lists = getLists();
+    setEntriesLists(lists);
+
+    const defaultName =
+      lists.length === 0 ? "" : lists[lists.length - 1].id.toString();
+    setActiveItem(defaultName);
+    console.log("effect lists: ", lists);
+  }, []);
+
+  useEffect(() => {
+    console.log("start useeffect, activeItem: ", activeItem);
+    if (activeItem != "") {
+      const data = fetchEntries(activeItem);
+      setEntries(data);
+    }
+
+    // return () => {
+    //   console.log("return useeffect");
+    // };
+  }, [activeItem]);
 
   return (
     <article>
@@ -16,7 +39,7 @@ const Article: React.FC = () => {
           setActiveItem={setActiveItem}
           lists={getLists()}
         />
-        <TabularSegment entires={getEntries(activeItem)} />
+        <TabularSegment entires={entries} />
       </Grid>
     </article>
   );
@@ -80,7 +103,7 @@ const getLists = () => {
   }.lists;
 };
 
-const getEntries = (id: string) => {
+const fetchEntries = (id: string) => {
   console.log(`get list_${id}'s entries lists`);
   return {
     entries: [
