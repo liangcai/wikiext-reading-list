@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment } from "semantic-ui-react";
+import { Segment, Grid } from "semantic-ui-react";
 
 interface entire {
   id: number;
@@ -26,9 +26,11 @@ const TabularSegment: React.FC<myPropsType> = (props) => {
   });
 
   return (
-    <Segment>
-      <div className="ui list">{entireList}</div>
-    </Segment>
+    <Grid.Column stretched width={12}>
+      <Segment>
+        <div className="ui list">{entireList}</div>
+      </Segment>
+    </Grid.Column>
   );
 };
 

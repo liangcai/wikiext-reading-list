@@ -1,58 +1,84 @@
 import React, { useState } from "react";
-import { Grid, Menu, Segment, MenuItemProps, Item } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
+import MenuTabularOnLeft from "./MenuTabularOnLeft";
 import TabularSegment from "./TabularSegment";
 
-interface menuType {
-  name: string;
-  id: number;
-  default: boolean;
-  description: string;
-  created: string;
-  updated: string;
-}
-
-interface MyProps {
-  lists: Array<menuType>;
-}
-
-const MenuTabularOnLeft: React.FC<MyProps> = (props) => {
-  const defaultId = props.lists[props.lists.length - 1].id.toString();
-  const [activeItem, setActiveItem] = useState<string>(defaultId);
-
-  const handleItemClick = (e: React.MouseEvent, data: MenuItemProps) => {
-    const { name } = data;
-    console.log("click id: ", name);
-    setActiveItem(name || defaultId);
-  };
-
-  const menuList = props.lists.map((item) => {
-    return (
-      <Menu.Item
-        name={item.id.toString()}
-        content={item.name}
-        active={activeItem === item.id.toString()}
-        onClick={handleItemClick}
-      />
-    );
-  });
+const Article: React.FC = () => {
+  // const defaultName = props.lists[props.lists.length - 1].id.toString();
+  const defaultName = "2292814";
+  const [activeItem, setActiveItem] = useState<string>(defaultName);
 
   return (
-    <Grid>
-      <Grid.Column width={4}>
-        <Menu fluid vertical tabular>
-          {menuList}
-        </Menu>
-      </Grid.Column>
-
-      <Grid.Column stretched width={12}>
-        {/* <Segment>这是一个可伸缩的列，这个区块总是匹配标签高度</Segment> */}
+    <article>
+      <Grid>
+        <MenuTabularOnLeft
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
+          lists={getLists()}
+        />
         <TabularSegment entires={getEntries(activeItem)} />
-      </Grid.Column>
-    </Grid>
+      </Grid>
+    </article>
   );
 };
 
-export default MenuTabularOnLeft;
+export default Article;
+
+const getLists = () => {
+  return {
+    lists: [
+      {
+        id: 2296453,
+        name: "书",
+        default: false,
+        description: "",
+        created: "2020-05-03T09:55:42Z",
+        updated: "2020-05-06T23:34:21Z",
+      },
+      {
+        id: 2298195,
+        name: "知识",
+        default: false,
+        description: "",
+        created: "2020-05-03T19:44:55Z",
+        updated: "2020-05-03T20:01:55Z",
+      },
+      {
+        id: 2298214,
+        name: "娱乐",
+        default: false,
+        description: "",
+        created: "2020-05-03T19:53:43Z",
+        updated: "2020-05-03T20:00:53Z",
+      },
+      {
+        id: 2296276,
+        name: "神话",
+        default: false,
+        description: "",
+        created: "2020-05-03T08:41:20Z",
+        updated: "2020-05-03T18:12:17Z",
+      },
+      {
+        id: 2292929,
+        name: "互联网",
+        default: false,
+        description: "",
+        created: "2020-05-02T07:38:50Z",
+        updated: "2020-05-02T07:38:50Z",
+      },
+      {
+        id: 2292814,
+        name: "default",
+        default: true,
+        description: "",
+        created: "2020-05-02T06:40:59Z",
+        updated: "2020-05-02T06:40:59Z",
+      },
+    ],
+    "continue-from": "2020-05-09T18:13:16Z",
+  }.lists;
+};
 
 const getEntries = (id: string) => {
   console.log(`get list_${id}'s entries lists`);
