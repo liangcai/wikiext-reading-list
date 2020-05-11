@@ -10,16 +10,26 @@ interface entire {
   updated: string;
 }
 
-interface MyProps {
+interface myPropsType {
   entires: Array<entire>;
 }
 
-const TabularSegment: React.FC<MyProps> = (props) => {
+const TabularSegment: React.FC<myPropsType> = (props) => {
   const entireList = props.entires.map((entrie) => {
-    return <p>{entrie.title}</p>;
+    return (
+      <div className="list">
+        <a href={`${entrie.project}/wiki/${entrie.title}`} target="_blank">
+          {entrie.title}
+        </a>
+      </div>
+    );
   });
 
-  return <Segment>{entireList}</Segment>;
+  return (
+    <Segment>
+      <div className="ui list">{entireList}</div>
+    </Segment>
+  );
 };
 
 export default TabularSegment;
