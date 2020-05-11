@@ -17,7 +17,7 @@ interface myPropsType {
 const TabularSegment: React.FC<myPropsType> = (props) => {
   const entireList = props.entires.map((entrie) => {
     return (
-      <div className="list">
+      <div className="list" key={entrie.id}>
         <a href={`${entrie.project}/wiki/${entrie.title}`} target="_blank">
           {entrie.title}
         </a>
