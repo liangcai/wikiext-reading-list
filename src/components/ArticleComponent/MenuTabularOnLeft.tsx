@@ -1,14 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Grid, Menu, MenuItemProps, Item } from "semantic-ui-react";
-
-interface menuType {
-  name: string;
-  id: number;
-  default: boolean;
-  description: string;
-  created: string;
-  updated: string;
-}
+import { menuType } from "../../type";
 
 interface MyProps {
   lists: Array<menuType>;
@@ -18,6 +10,8 @@ interface MyProps {
 
 const MenuTabularOnLeft: React.FC<MyProps> = (props) => {
   const { lists, activeItem, setActiveItem } = props;
+
+  console.log(`lists: ${lists.toString()}, activeItem: ${activeItem}`);
 
   const handleItemClick = (e: React.MouseEvent, data: MenuItemProps) => {
     const { name } = data;
