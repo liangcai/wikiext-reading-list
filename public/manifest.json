@@ -11,12 +11,12 @@
   },
   "default_locale": "en",
   "background": {
-    "scripts": ["bg/background.js", "bg/bgContextMenus.js"],
-    // "page": "bg/background.html",
+    // "scripts": ["bg/background.js", "bg/bgContextMenus.js"],
+    "page": "bg/background.html",
     "persistent": false
   },
   "options_page": "index.html",
-  "browser_action": {
+  "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "browser action demo",
     "default_popup": "browser_action/browser_action.html"

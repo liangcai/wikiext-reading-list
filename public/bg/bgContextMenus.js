@@ -3,7 +3,7 @@ chrome.runtime.onInstalled.addListener(function () {
     id: "goReadingList",
     type: "normal",
     title: "show wiki reading list",
-    contexts: ["browser_action"],
+    contexts: ["page_action"],
   });
 });
 
