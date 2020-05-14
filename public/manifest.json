@@ -11,8 +11,8 @@
   },
   "default_locale": "en",
   "background": {
-    // "scripts": ["bg/background.js", "bg/bgContextMenus.js"],
-    "page": "bg/background.html",
+    "scripts": ["bg/background.js", "bg/bgContextMenus.js"],
+    // "page": "bg/background.html",
     "persistent": false
   },
   "options_page": "index.html",
