@@ -14,8 +14,19 @@ chrome.runtime.onInstalled.addListener(function () {
     title: "save to selected list",
     contexts: ["page"],
   });
-  createMenu("sub1", "list1");
-  createMenu("sub2", "list2");
+  chrome.storage.local.get(["lists"], function (result) {
+    console.log("get lists data from storage");
+    console.log(result);
+    result.lists.map((item) => {
+      createMenu(item.id.toString(), item.name);
+      chrome.contextMenus.onClicked.addListener(function (info, tab) {
+        if (info.menuItemId === item.id.toString()) {
+          console.log(`add this page to entries list ${item.name}`);
+        }
+      });
+      return true;
+    });
+  });
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {

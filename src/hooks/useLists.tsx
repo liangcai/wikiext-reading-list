@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { API_PREFIX, API_LOGIN } from "../config";
 import { AxiosResponse, AxiosError } from "axios";
-import { rejects } from "assert";
-import { DH_CHECK_P_NOT_PRIME } from "constants";
 
 const axios = require("axios").default;
 
@@ -13,6 +11,9 @@ const useLists = () => {
     getLists().then((response: AxiosResponse) => {
       console.log("response status:" + response.status);
       const lists = response.data.lists;
+      chrome.storage.local.set({ lists: lists }, () => {
+        console.log("lists saved success");
+      });
       setEntriesLists(lists);
     });
   }, []);

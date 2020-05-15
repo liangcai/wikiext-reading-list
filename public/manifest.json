@@ -25,6 +25,7 @@
     "contextMenus",
     "cookies",
     "tabs",
+    "storage",
     "https://*.wikipedia.org/*",
     "https://*.wikivoyage.org/*"
   ]
