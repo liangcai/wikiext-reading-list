@@ -8,14 +8,18 @@ const useLists = () => {
   const [entriesLists, setEntriesLists] = useState<Array<any>>([]);
 
   useEffect(() => {
-    getLists().then((response: AxiosResponse) => {
-      console.log("response status:" + response.status);
-      const lists = response.data.lists;
-      chrome.storage.local.set({ lists: lists }, () => {
-        console.log("lists saved success");
+    getLists()
+      .then((response: AxiosResponse) => {
+        console.log("response status:" + response.status);
+        const lists = response.data.lists;
+        chrome.storage.local.set({ lists: lists }, () => {
+          console.log("lists saved success");
+        });
+        setEntriesLists(lists);
+      })
+      .catch((error: AxiosError) => {
+        console.log("read lists faiure, wait");
       });
-      setEntriesLists(lists);
-    });
   }, []);
 
   return {

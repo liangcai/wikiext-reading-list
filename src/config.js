@@ -10,4 +10,6 @@ const API_VERSION = "1";
 const API_PREFIX = `https://${API_HOST}/api/rest_v${API_VERSION}/data/`;
 const API_LOGIN = `https://${API_HOST}/wiki/Special:UserLogin`;
 
-export { API_PREFIX, API_LOGIN };
+const API_PROJECT = "https://en.wikipedia.org";
+
+export { API_PREFIX, API_LOGIN, API_PROJECT };
