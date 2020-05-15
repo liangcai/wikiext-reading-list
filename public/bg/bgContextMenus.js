@@ -1,5 +1,4 @@
-// import Axios from "axios";
-// import { API_PREFIX, API_PROJECT } from "../../src/config";
+import { API_PREFIX, API_PROJECT } from "./config.js";
 
 chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
@@ -23,22 +22,9 @@ chrome.runtime.onInstalled.addListener(function () {
     if ("lists" in result) {
       result.lists.map((item) => {
         createMenu(item.id.toString(), item.name);
-        chrome.contextMenus.onClicked.addListener(function (info, tab) {
-          if (info.menuItemId === item.id.toString()) {
-            console.log(`add this page to entries list ${item.name}`);
-          }
-        });
         return true;
       });
     }
-    // else {
-    //   chrome.contextMenus.onClicked.addListener(function (info, tab) {
-    //     if (info.menuItemId === "parentItem") {
-    //       console.log("need login and save lists to storage");
-    //       window.open(chrome.extension.getURL("index.html"));
-    //     }
-    //   });
-    // }
   });
 });
 
@@ -56,11 +42,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
       if ("lists" in result) {
         result.lists.map((item) => {
           createMenu(item.id.toString(), item.name);
-          chrome.contextMenus.onClicked.addListener(function (info, tab) {
-            if (info.menuItemId === item.id.toString()) {
-              console.log(`add this page to entries list ${item.name}`);
-            }
-          });
           return true;
         });
       } else {
@@ -81,13 +62,57 @@ const createMenu = (id, title) => {
     parentId: "parentItem",
   };
   chrome.contextMenus.create(options);
+
+  chrome.contextMenus.onClicked.addListener(function (info, tab) {
+    if (info.menuItemId === id) {
+      let tabURL = tab && tab.url;
+      let title = decodeURIComponent(parseTitleFromUrl(tabURL));
+      console.log(`add page **${title}** to entries list ${id}: ${title}`);
+      addToList(id, title);
+    }
+  });
 };
 
-// const addToList = (entrie, listId) => {
-//   Axios.post(`${API_PREFIX}/lists/${listId}/entries`, {
-//     project: API_PROJECT,
-//     title: entrie,
-//   }).then((response) => {
-//     console.log(`add entrie to list, response: ${response}`);
-//   });
-// };
+const parseTitleFromUrl = (href) => {
+  const url = new URL(href);
+  return url.searchParams.has("title")
+    ? url.searchParams.get("title")
+    : url.pathname.replace("/wiki/", "");
+};
+
+const addToList = (listId, title) => {
+  fetch(
+    "https://en.wikipedia.org/w/api.php?action=query&meta=tokens&format=json",
+    {
+      headers: { "content-type": "application/json; charset=utf-8" },
+    }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      console.log(response);
+      let token = encodeURIComponent(response.query.tokens.csrftoken);
+      let postdata = {
+        project: API_PROJECT,
+        title: title,
+      };
+
+      fetch(`${API_PREFIX}lists/${listId}/entries/?csrf_token=${token}`, {
+        body: JSON.stringify(postdata),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      })
+        .catch((err) => {
+          console.error("Error:", err);
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("add entrie to list, response:", data);
+        });
+    });
+};

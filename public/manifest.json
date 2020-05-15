@@ -11,11 +11,11 @@
   },
   "default_locale": "en",
   "background": {
-    "scripts": ["bg/background.js", "bg/bgContextMenus.js"],
-    // "page": "bg/background.html",
+    // "scripts": ["bg/background.js", "bg/bgContextMenus.js"],
+    "page": "bg/background.html",
     "persistent": false
   },
-  "options_page": "index.html",
+  // "options_page": "index.html",
   "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "browser action demo",
@@ -28,5 +28,6 @@
     "storage",
     "https://*.wikipedia.org/*",
     "https://*.wikivoyage.org/*"
-  ]
+  ],
+  "web_accessible_resources": ["index.html"]
 }
