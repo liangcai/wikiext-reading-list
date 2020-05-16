@@ -1,3 +1,6 @@
+1. Save article to wikipedia's reading list from desktop chrome.
+2. Read Wikipedia reading list articles saved from wikipedia’s iOS and Android apps
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

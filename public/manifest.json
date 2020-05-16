@@ -2,8 +2,8 @@
   "name": "wikiext-reading-list",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "This extension was Organizing you wiki reading list on chrome",
-  "homepage_url": "http://extensionizr.com",
+  "description": "This extension use wiki reading list on chrome",
+  "homepage_url": "https://github.com/liangcai/wikiext-reading-list",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

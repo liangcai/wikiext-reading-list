@@ -13,7 +13,7 @@ const Article: React.FC = () => {
   useActiveItem(entriesLists, setActiveItem);
 
   return (
-    <article>
+    <article className="ui container">
       <Grid>
         <MenuTabularOnLeft
           activeItem={activeItem}
